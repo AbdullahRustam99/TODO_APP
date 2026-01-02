@@ -1,7 +1,7 @@
-# Quickstart Guide: Phase I - Console TODO App
+# Quickstart Guide: Phase I - Console TODO App (Arrow-Key Navigation)
 
-**Date**: 2025-12-27
-**Feature**: Phase I - Console TODO App
+**Date**: 2026-01-02
+**Feature**: Phase I - Console TODO App (Arrow-Key Navigation)
 
 ## Getting Started
 
@@ -27,78 +27,84 @@ Execute the main application file:
 python src/main.py
 ```
 
-The application will start and display a prompt where you can enter commands.
+The application will start and display an interactive menu with visual selection using arrow keys.
 
-## Available Commands
+## Navigation Guide
 
-### `add`
-Add a new task with a title and optional description.
-```
-add Buy groceries
-add Complete project proposal - Description for the project
-```
+### Menu Navigation
+- Use **Up Arrow (↑)** to move selection up in the menu
+- Use **Down Arrow (↓)** to move selection down in the menu
+- Use **Enter** to select the highlighted menu option
+- Menu selections loop (bottom to top, top to bottom)
 
-### `view`
-View all tasks with their ID, title, description, and status.
-```
-view
-```
+### Available Menu Options
 
-### `update`
-Update an existing task by ID with a new title and/or description.
-```
-update 1 New task title
-update 2 - Description only
-update 3 Updated title - New description
-```
+#### Add Task
+- Navigate to "Add Task" and press Enter
+- Enter task title when prompted
+- Optionally enter task description
+- Task will be added with auto-generated ID
 
-### `delete`
-Delete a task by its ID.
-```
-delete 1
-```
+#### View Tasks
+- Navigate to "View Tasks" and press Enter
+- See all tasks with ID, title, and completion status (✓ Completed / ✗ Pending)
 
-### `mark`
-Mark a task as pending, in_progress, or done.
-```
-mark 1 pending
-mark 2 in_progress
-mark 3 done
-```
+#### Update Task
+- Navigate to "Update Task" and press Enter
+- Enter the task ID when prompted
+- Enter new title and/or description when prompted
+- Task will be updated in memory
 
-### `help`
-Display available commands and their usage.
-```
-help
-```
+#### Delete Task
+- Navigate to "Delete Task" and press Enter
+- Enter the task ID when prompted
+- Confirm deletion when prompted
+- Task will be removed from memory
 
-### `exit`
-Exit the application gracefully.
-```
-exit
-```
+#### Mark Task Complete / Incomplete
+- Navigate to "Mark Task Complete / Incomplete" and press Enter
+- Enter the task ID when prompted
+- Task completion status will be toggled
+
+#### Exit
+- Navigate to "Exit" and press Enter
+- Application will terminate gracefully
 
 ## Example Workflow
 
 ```
 $ python src/main.py
-Welcome to the TODO App! Type 'help' for available commands.
-> add Buy groceries
-Task 1 added: Buy groceries (pending)
-> add Complete project proposal - Important project work
-Task 2 added: Complete project proposal (pending) [Important project work]
-> view
-ID | Title                    | Description           | Status
-1  | Buy groceries            |                       | pending
-2  | Complete project proposal| Important project work| pending
-> mark 2 in_progress
-Task 2 marked as in_progress
-> exit
-Goodbye!
+┌─────────────────────────┐
+│     TODO APPLICATION    │
+├─────────────────────────┤
+│ > Add Task              │
+│   View Tasks            │
+│   Update Task           │
+│   Delete Task           │
+│   Mark Task Complete    │
+│   Exit                  │
+└─────────────────────────┘
+
+[Use arrow keys to navigate, Enter to select]
+
+[User presses Down Arrow twice, then Enter]
+> Selected: View Tasks
+> No tasks available
+
+[User presses Up Arrow 5 times to loop to "Add Task", then Enter]
+> Selected: Add Task
+> Enter task title: Buy groceries
+> Enter task description (optional): Weekly shopping
+> Task added with ID: 1
+
+[User presses Down Arrow once and Enter to view tasks]
+> Selected: View Tasks
+> 1. Buy groceries [Weekly shopping] - ✗ Pending
 ```
 
 ## Troubleshooting
 
-- If you get a "command not found" error, ensure you're running Python from the correct directory
-- If the application crashes, check that you're providing the correct arguments to each command
-- For invalid task IDs, the application will display an appropriate error message
+- If arrow keys don't respond, ensure you're running in a terminal that supports curses (most modern terminals do)
+- If the application crashes, check that you're providing valid inputs when prompted
+- For invalid task IDs, the application will display an appropriate error message and return to the menu
+- If you see display issues, resize your terminal window or try a different terminal application

@@ -1,34 +1,37 @@
-# Implementation Plan: Phase I - Console TODO App
+# Implementation Plan: Phase I - Console TODO App (Arrow-Key Navigation)
 
-**Branch**: `001-phase1-console-todo` | **Date**: 2025-12-27 | **Spec**: [link]
+**Branch**: `phase1` | **Date**: 2026-01-02 | **Spec**: [spec.md](spec.md)
 **Input**: Feature specification from `/specs/phase1-console-todo/spec.md`
 
 **Note**: This template is filled in by the `/sp.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
 ## Summary
 
-Console-based TODO application in Python with in-memory storage supporting add, view, update, delete, and mark tasks functionality. The application will use simple text commands and provide user-friendly error handling with three-state task status (pending, in_progress, done).
+Interactive console-based TODO application with arrow-key navigation (↑ ↓) and Enter key selection. The application provides menu-driven task management (Add, View, Update, Delete, Mark Complete) with in-memory storage using Python data structures. The interface uses visual menu selection instead of text commands.
 
 ## Technical Context
 
-**Language/Version**: Python 3.13+
-**Primary Dependencies**: Built-in Python libraries only (no external dependencies for Phase I)
-**Storage**: In-memory Python data structures (lists/dictionaries)
+**Language/Version**: Python 3.13
+**Primary Dependencies**: `curses` library for arrow-key navigation, standard library only
+**Storage**: In-memory using Python data structures (no persistence)
 **Testing**: pytest for unit and integration tests
-**Target Platform**: Cross-platform console application
-**Project Type**: Single console application
-**Performance Goals**: <100ms response time for all operations
-**Constraints**: Console-based UI only, in-memory persistence, no external dependencies
-**Scale/Scope**: Single user, local usage, <1000 tasks expected
+**Target Platform**: Cross-platform console application (Windows, macOS, Linux)
+**Project Type**: Console application
+**Performance Goals**: Menu navigation responds within 100ms
+**Constraints**: <200ms p95 response time, <100MB memory, console-only interface, no numeric/command-based input
+**Scale/Scope**: Single-user, in-memory session, up to 1000 tasks per session
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- ✅ Spec-Driven Development: Implementation will follow the written specification exactly
-- ✅ Architecture-First Design: Architecture designed before implementation
-- ✅ Test-First (NON-NEGOTIABLE): Tests will be written before implementation
-- ✅ Phase-Based Evolution: This phase will be designed to extend to future phases
+- ✅ Spec-Driven Development: Implementation must follow written specifications only (Constitution: Spec-Driven Development)
+- ✅ No manual coding: Implementation must be generated using Claude Code (Constitution: Spec-Driven Development)
+- ✅ Python 3.13+ requirement: Application must run on specified Python version
+- ✅ In-memory storage: No database or file persistence allowed (Constitution: Phase I requirements)
+- ✅ Console-based: No GUI or web interface (Constitution: Phase I requirements)
+- ✅ Test-first approach: TDD mandatory for all features (Constitution: Test-First principle)
+- ✅ Arrow-key navigation: Must implement menu navigation using arrow keys only (Specification requirement)
 
 ## Project Structure
 
@@ -52,20 +55,23 @@ src/
 ├── models/
 │   └── task.py          # Task data model
 ├── services/
-│   └── task_manager.py  # Task management logic
-└── cli/
-    └── console_interface.py  # Command parsing and console interaction
+│   └── task_manager.py  # Task CRUD operations
+├── cli/
+│   └── menu_navigator.py # Arrow-key navigation interface
+└── lib/
+    └── console_interface.py # Console I/O handling
 
 tests/
 ├── unit/
-│   ├── test_task.py     # Task model tests
-│   └── test_task_manager.py  # Task manager tests
+│   ├── test_task.py
+│   └── test_task_manager.py
 ├── integration/
-│   └── test_console_flow.py  # End-to-end console flow tests
-└── contract/            # Not applicable for console app
+│   └── test_menu_navigation.py
+└── contract/
+    └── test_cli_interface.py
 ```
 
-**Structure Decision**: Single console application with clear separation of concerns between data models, business logic, and user interface layers.
+**Structure Decision**: Single console application with clear separation of concerns between data models, business logic, and user interface components. The CLI module handles arrow-key navigation specifically for the menu system.
 
 ## Complexity Tracking
 
@@ -73,4 +79,4 @@ tests/
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| [None] | [No violations detected] | [N/A] |
+| curses library | Arrow-key navigation requirement | Direct terminal control needed for up/down arrow support |
