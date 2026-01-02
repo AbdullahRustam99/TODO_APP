@@ -1,13 +1,13 @@
 ---
-description: "Task list template for feature implementation"
+description: "Task list for Phase I Console TODO App with Arrow-Key Navigation"
 ---
 
-# Tasks: Phase I - Console TODO App
+# Tasks: Phase I - Console TODO App (Arrow-Key Navigation)
 
 **Input**: Design documents from `/specs/phase1-console-todo/`
-**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
+**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, quickstart.md
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: Test-driven development approach requested per constitution
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -20,34 +20,15 @@ description: "Task list template for feature implementation"
 ## Path Conventions
 
 - **Single project**: `src/`, `tests/` at repository root
-- Paths shown below assume single project - adjust based on plan.md structure
-
-<!--
-  ============================================================================
-  IMPORTANT: The tasks below are SAMPLE TASKS for illustration purposes only.
-
-  The /sp.tasks command MUST replace these with actual tasks based on:
-  - User stories from spec.md (with their priorities P1, P2, P3...)
-  - Feature requirements from plan.md
-  - Entities from data-model.md
-  - Endpoints from contracts/
-
-  Tasks MUST be organized by user story so each story can be:
-  - Implemented independently
-  - Tested independently
-  - Delivered as an MVP increment
-
-  DO NOT keep these sample tasks in the generated tasks.md file.
-  ============================================================================
--->
+- Paths shown below follow the single project structure defined in plan.md
 
 ## Phase 1: Setup (Shared Infrastructure)
 
 **Purpose**: Project initialization and basic structure
 
 - [ ] T001 Create project structure per implementation plan in src/
-- [ ] T002 Initialize Python project with proper directory structure
-- [ ] T003 [P] Create src/models/, src/services/, src/cli/ directories
+- [ ] T002 Initialize Python 3.13 project with requirements.txt
+- [ ] T003 [P] Configure linting and formatting tools (pylint, black, flake8)
 
 ---
 
@@ -57,112 +38,108 @@ description: "Task list template for feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-Examples of foundational tasks (adjust based on your project):
-
-- [ ] T004 Create Task data model in src/models/task.py with id, title, description, status, created_at
-- [ ] T005 [P] Create TaskStatus enum in src/models/task.py with pending, in_progress, done values
-- [ ] T006 Create TaskManager service in src/services/task_manager.py with CRUD operations
-- [ ] T007 Implement in-memory storage in TaskManager using Python dict/list
-- [ ] T008 Create ConsoleInterface class in src/cli/console_interface.py for command parsing
-- [ ] T009 Setup error handling and validation in all foundational components
+- [ ] T004 Create Task data model in src/models/task.py with id, title, description, completed
+- [ ] T005 [P] Create TaskCollection in-memory storage in src/services/task_manager.py
+- [ ] T006 [P] Setup curses-based menu navigation in src/cli/menu_navigator.py
+- [ ] T007 Create console interface utilities in src/lib/console_interface.py
+- [ ] T008 Configure error handling and validation in all foundational components
+- [ ] T009 Setup application entry point in src/main.py
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
 ---
 
-## Phase 3: User Story 1 - Basic Task Management (Priority: P1) 🎯 MVP
+## Phase 3: User Story 1 - Interactive Menu Navigation (Priority: P1) 🎯 MVP
 
-**Goal**: Enable users to add, view, and manage tasks through a console interface
+**Goal**: Implement arrow-key navigation (↑ ↓) and Enter key selection for menu options
 
-**Independent Test**: Can be fully tested by adding tasks, viewing them, and confirming they persist in memory during the session.
+**Independent Test**: Launch the application and navigate through menu options using arrow keys and Enter key
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 1 (Test-driven approach) ⚠️
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Unit test for Task model in tests/unit/test_task.py
-- [ ] T011 [P] [US1] Integration test for console flow in tests/integration/test_console_flow.py
+- [ ] T010 [P] [US1] Contract test for menu navigation in tests/contract/test_menu_navigation.py
+- [ ] T011 [P] [US1] Integration test for menu selection flow in tests/integration/test_menu_flow.py
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Implement add_task functionality in src/services/task_manager.py
-- [ ] T013 [P] [US1] Implement list_tasks functionality in src/services/task_manager.py
-- [ ] T014 [US1] Implement command parsing for 'add' command in src/cli/console_interface.py
-- [ ] T015 [US1] Implement command parsing for 'view' command in src/cli/console_interface.py
-- [ ] T016 [US1] Implement command parsing for 'help' command in src/cli/console_interface.py
-- [ ] T017 [US1] Add validation for task title in src/models/task.py
-- [ ] T018 [US1] Add default 'pending' status for new tasks in src/services/task_manager.py
-- [ ] T019 [US1] Create main.py entry point with basic command loop
+- [ ] T012 [P] [US1] Create MenuNavigator class in src/cli/menu_navigator.py
+- [ ] T013 [US1] Implement arrow-key input handling in src/cli/menu_navigator.py
+- [ ] T014 [US1] Implement menu display with highlighting in src/cli/menu_navigator.py
+- [ ] T015 [US1] Add menu looping functionality (bottom to top, top to bottom)
+- [ ] T016 [US1] Create main menu with options: Add Task, View Tasks, Update Task, Delete Task, Mark Complete, Exit
+- [ ] T017 [US1] Add visual feedback for current selection
+- [ ] T018 [US1] Implement menu selection execution in src/cli/menu_navigator.py
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
 ---
 
-## Phase 4: User Story 2 - Task Modification (Priority: P2)
+## Phase 4: User Story 2 - Task Management Operations (Priority: P2)
 
-**Goal**: Allow users to update and delete tasks and mark them with different statuses
+**Goal**: Implement add, view, update, delete, and mark tasks as complete using arrow-key navigation
 
-**Independent Test**: Can be tested by adding tasks, modifying them, and verifying the changes persist in memory.
+**Independent Test**: Use the menu navigation to access each task operation and verify it works correctly
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 2 (Test-driven approach) ⚠️
 
-- [ ] T020 [P] [US2] Unit test for TaskManager update/delete operations in tests/unit/test_task_manager.py
-- [ ] T021 [P] [US2] Integration test for update/delete commands in tests/integration/test_console_flow.py
+> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
+
+- [ ] T019 [P] [US2] Contract test for task operations in tests/contract/test_task_operations.py
+- [ ] T020 [P] [US2] Integration test for task management flow in tests/integration/test_task_management.py
 
 ### Implementation for User Story 2
 
-- [ ] T022 [P] [US2] Implement update_task functionality in src/services/task_manager.py
-- [ ] T023 [P] [US2] Implement delete_task functionality in src/services/task_manager.py
-- [ ] T024 [P] [US2] Implement mark_task_status functionality in src/services/task_manager.py
-- [ ] T025 [US2] Implement command parsing for 'update' command in src/cli/console_interface.py
-- [ ] T026 [US2] Implement command parsing for 'delete' command in src/cli/console_interface.py
-- [ ] T027 [US2] Implement command parsing for 'mark' command in src/cli/console_interface.py
-- [ ] T028 [US2] Add validation for task status updates in src/models/task.py
-- [ ] T029 [US2] Add validation for task ID existence in src/services/task_manager.py
+- [ ] T021 [P] [US2] Implement Add Task functionality in src/cli/menu_navigator.py
+- [ ] T022 [P] [US2] Implement View Tasks functionality in src/cli/menu_navigator.py
+- [ ] T023 [US2] Implement Update Task functionality in src/cli/menu_navigator.py
+- [ ] T024 [US2] Implement Delete Task functionality in src/cli/menu_navigator.py
+- [ ] T025 [US2] Implement Mark Task Complete/Incomplete functionality in src/cli/menu_navigator.py
+- [ ] T026 [US2] Connect task operations to TaskManager service
+- [ ] T027 [US2] Add task display with ID, title, and completion status (✓ Completed / ✗ Pending)
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
 ---
 
-## Phase 5: User Story 3 - Application Lifecycle (Priority: P3)
+## Phase 5: User Story 3 - Error Handling and Input Validation (Priority: P3)
 
-**Goal**: Provide a clean way for users to exit the application and handle errors gracefully
+**Goal**: Handle invalid inputs gracefully and provide clear feedback to prevent application crashes
 
-**Independent Test**: Can be tested by starting the application and using the exit command to terminate it properly.
+**Independent Test**: Enter invalid task IDs, empty titles, and other invalid inputs to verify proper error handling
 
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 3 (Test-driven approach) ⚠️
 
-- [ ] T030 [P] [US3] Unit test for graceful exit functionality in tests/unit/test_console_interface.py
-- [ ] T031 [P] [US3] Integration test for error handling in tests/integration/test_console_flow.py
+> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
+
+- [ ] T028 [P] [US3] Contract test for error handling in tests/contract/test_error_handling.py
+- [ ] T029 [P] [US3] Integration test for invalid input scenarios in tests/integration/test_error_scenarios.py
 
 ### Implementation for User Story 3
 
-- [ ] T032 [P] [US3] Implement graceful exit functionality in src/cli/console_interface.py
-- [ ] T033 [P] [US3] Implement command parsing for 'exit' command in src/cli/console_interface.py
-- [ ] T034 [US3] Implement error handling for invalid commands in src/cli/console_interface.py
-- [ ] T035 [US3] Add user-friendly error messages with guidance in src/cli/console_interface.py
-- [ ] T036 [US3] Implement input validation for all commands in src/cli/console_interface.py
-- [ ] T037 [US3] Add proper exception handling throughout the application
-- [ ] T038 [US3] Implement proper cleanup on exit in src/main.py
+- [ ] T030 [P] [US3] Add validation for empty task titles in src/services/task_manager.py
+- [ ] T031 [US3] Add validation for invalid task IDs in src/services/task_manager.py
+- [ ] T032 [US3] Implement user-friendly error messages in src/lib/console_interface.py
+- [ ] T033 [US3] Add input validation for all user inputs
+- [ ] T034 [US3] Prevent application crashes due to invalid user input
+- [ ] T035 [US3] Add confirmation prompt for task deletion
+- [ ] T036 [US3] Implement graceful exit functionality in src/main.py
 
 **Checkpoint**: All user stories should now be independently functional
 
 ---
 
-[Add more user story phases as needed, following the same pattern]
-
----
-
-## Phase N: Polish & Cross-Cutting Concerns
+## Phase 6: Polish & Cross-Cutting Concerns
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T039 [P] Documentation updates in docs/
-- [ ] T040 Code cleanup and refactoring
-- [ ] T041 Performance optimization across all stories
-- [ ] T042 [P] Additional unit tests (if requested) in tests/unit/
-- [ ] T043 Security hardening
-- [ ] T044 Run quickstart.md validation
+- [ ] T037 [P] Documentation updates in docs/
+- [ ] T038 Code cleanup and refactoring
+- [ ] T039 Performance optimization for menu navigation (response within 100ms)
+- [ ] T040 [P] Additional unit tests in tests/unit/
+- [ ] T041 Security hardening
+- [ ] T042 Run quickstart.md validation
 
 ---
 
@@ -180,8 +157,8 @@ Examples of foundational tasks (adjust based on your project):
 ### User Story Dependencies
 
 - **User Story 1 (P1)**: Can start after Foundational (Phase 2) - No dependencies on other stories
-- **User Story 2 (P2)**: Can start after Foundational (Phase 2) - May integrate with US1 but should be independently testable
-- **User Story 3 (P3)**: Can start after Foundational (Phase 2) - May integrate with US1/US2 but should be independently testable
+- **User Story 2 (P2)**: Can start after Foundational (Phase 2) - Depends on TaskManager service from foundational phase
+- **User Story 3 (P3)**: Can start after Foundational (Phase 2) - Depends on TaskManager and menu system from other stories
 
 ### Within Each User Story
 
@@ -205,13 +182,14 @@ Examples of foundational tasks (adjust based on your project):
 ## Parallel Example: User Story 1
 
 ```bash
-# Launch all tests for User Story 1 together (if tests requested):
-Task: "Unit test for Task model in tests/unit/test_task.py"
-Task: "Integration test for console flow in tests/integration/test_console_flow.py"
+# Launch all tests for User Story 1 together:
+Task: "Contract test for menu navigation in tests/contract/test_menu_navigation.py"
+Task: "Integration test for menu selection flow in tests/integration/test_menu_flow.py"
 
-# Launch all models for User Story 1 together:
-Task: "Implement add_task functionality in src/services/task_manager.py"
-Task: "Implement list_tasks functionality in src/services/task_manager.py"
+# Launch all implementation for User Story 1 together:
+Task: "Create MenuNavigator class in src/cli/menu_navigator.py"
+Task: "Implement arrow-key input handling in src/cli/menu_navigator.py"
+Task: "Implement menu display with highlighting in src/cli/menu_navigator.py"
 ```
 
 ---
