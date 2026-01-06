@@ -1,0 +1,226 @@
+/* Glassmorphism effects for dashboard components */
+
+/* Base glassmorphism class */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius, 0.5rem);
+}
+
+/* Enhanced glass effect for dashboard cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: calc(var(--radius, 0.5rem) + 4px);
+  box-shadow:
+    0 8px 32px 0 rgba(31, 38, 135, 0.15),
+    inset 0 4px 12px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Frosted glass effect for panels */
+.frosted-glass {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: calc(var(--radius, 0.5rem) + 6px);
+  box-shadow:
+    inset 0 4px 16px 0 rgba(255, 255, 255, 0.08),
+    0 4px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Subtle glass effect for less prominent elements */
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius, 0.5rem);
+}
+
+/* Glass effect with colored tint */
+.glass-orange {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 179, 8, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  border-radius: calc(var(--radius, 0.5rem) + 2px);
+}
+
+.glass-blue {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: calc(var(--radius, 0.5rem) + 2px);
+}
+
+.glass-green {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: calc(var(--radius, 0.5rem) + 2px);
+}
+
+/* Glass effect with hover states */
+.glass-hover {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius, 0.5rem);
+  transition: all 0.3s ease;
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 8px 32px 0 rgba(31, 38, 135, 0.2),
+    inset 0 4px 12px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Glass effect with active states */
+.glass-active {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: calc(var(--radius, 0.5rem) + 2px);
+  box-shadow:
+    0 4px 20px 0 rgba(31, 38, 135, 0.25),
+    inset 0 2px 8px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Glass effect for input fields */
+.glass-input {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius, 0.5rem);
+  color: white;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  outline: none;
+  border: 1px solid rgba(249, 115, 22, 0.5);
+  box-shadow:
+    0 0 0 3px rgba(249, 115, 22, 0.2),
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Glass effect for buttons */
+.glass-button {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius, 0.5rem);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 4px 16px 0 rgba(31, 38, 135, 0.15),
+    inset 0 2px 8px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-button:active {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(1px);
+}
+
+/* Glass effect for navigation */
+.glass-nav {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+}
+
+/* Glass effect for modal overlays */
+.glass-modal {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Glass effect for sidebar */
+.glass-sidebar {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  width: 240px;
+}
+
+/* Glass effect for dashboard widgets */
+.glass-widget {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: calc(var(--radius, 0.5rem) + 4px);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.glass-widget:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 10px 40px 0 rgba(31, 38, 135, 0.2),
+    inset 0 4px 16px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Glass effect with reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .glass,
+  .glass-card,
+  .frosted-glass,
+  .glass-subtle,
+  .glass-hover,
+  .glass-button,
+  .glass-widget {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-hover,
+  .glass-button,
+  .glass-widget {
+    transition: none;
+  }
+}
+
+/* High contrast mode support for glassmorphism */
+@media (prefers-contrast: high) {
+  .glass,
+  .glass-card,
+  .frosted-glass,
+  .glass-subtle,
+  .glass-hover,
+  .glass-button,
+  .glass-widget {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid white;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
