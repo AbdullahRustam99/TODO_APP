@@ -1,0 +1,371 @@
+@import "tailwindcss";
+@import "../styles/design-system.css";
+@import "../styles/animations.css";
+@import "../styles/glassmorphism.css";
+
+:root {
+  --background: #000000; /* Black */
+  --foreground: #ffffff; /* White */
+  --card: #0a0a0a;
+  --card-foreground: #ffffff;
+  --primary: #f97316; /* Orange-500 */
+  --primary-foreground: #ffffff;
+  --secondary: #eab308; /* Yellow-500 */
+  --secondary-foreground: #000000;
+  --accent: #1f2937;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #374151;
+  --input: #374151;
+  --ring: #f97316;
+  --radius: 0.5rem;
+
+  /* Animation variables */
+  --animation-duration-fast: 150ms;
+  --animation-duration-normal: 250ms;
+  --animation-duration-slow: 350ms;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius: var(--radius);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Animation timing */
+  --animate-duration: var(--animation-duration-normal);
+  --animate-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --animate-ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+  --animate-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  /* Improve accessibility by ensuring proper text scaling */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Additional custom styles for dark theme */
+.bg-black { background-color: #000000; }
+.text-orange { color: #f97316; }
+.text-yellow { color: #eab308; }
+.border-orange { border-color: #f97316; }
+.border-yellow { border-color: #eab308; }
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: background-color var(--animate-duration, 200ms) var(--animate-ease-out, ease-out),
+              border-color var(--animate-duration, 200ms) var(--animate-ease-out, ease-out),
+              color var(--animate-duration, 200ms) var(--animate-ease-out, ease-out),
+              box-shadow var(--animate-duration, 200ms) var(--animate-ease-out, ease-out),
+              transform var(--animate-duration, 200ms) var(--animate-ease-out, ease-out);
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Animation utilities */
+.animate-scale {
+  transition: transform var(--animate-duration, 200ms) var(--animate-ease-out, ease-out);
+}
+
+.animate-scale:hover {
+  transform: scale(1.05);
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--animate-duration, 200ms) var(--animate-ease-out, ease-out);
+}
+
+.animate-slide-down {
+  animation: slideDown var(--animate-duration, 200ms) var(--animate-ease-out, ease-out);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Accessibility improvements - WCAG 2.1 AA compliant */
+/* Focus styles for better keyboard navigation - 2px minimum focus indicator */
+.focus-visible,
+*:focus-visible {
+  outline: 2px solid var(--ring) !important;
+  outline-offset: 2px !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: #ffffff;
+    --input: #ffffff;
+  }
+
+  /* Enhance contrast for high contrast mode */
+  .bg-gray-800,
+  .bg-gray-900,
+  .bg-gray-700 {
+    background-color: #000000 !important;
+  }
+
+  .text-gray-400,
+  .text-gray-500,
+  .text-gray-600 {
+    color: #ffffff !important;
+  }
+
+  .border-gray-700,
+  .border-gray-800 {
+    border-color: #ffffff !important;
+  }
+}
+
+/* Reduced motion support - WCAG requirement for vestibular disorders */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate-spin,
+  .animate-pulse,
+  .animate-bounce {
+    animation: none !important;
+  }
+
+  .animate-scale,
+  .animate-fade-in,
+  .animate-slide-down,
+  .animate-slide-up,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-bounce {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Screen reader only class - for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Visible focus indicator for elements that are not natively focusable */
+[tabindex]:focus-visible {
+  outline: 2px solid var(--ring) !important;
+  outline-offset: 2px !important;
+}
+
+/* Skip link for keyboard users - WCAG requirement */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: var(--radius);
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Better contrast for text elements - WCAG AA compliance */
+.text-gray-300 { color: #d1d5db !important; } /* Increase contrast */
+.text-gray-400 { color: #9ca3af !important; } /* Increase contrast */
+.text-gray-500 { color: #6b7280 !important; } /* Increase contrast */
+
+/* Enhanced focus styles for buttons and interactive elements */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--ring) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 20%, transparent) !important;
+}
+
+/* Ensure sufficient color contrast for all color combinations */
+.text-orange-500 { color: #f97316 !important; }
+.text-yellow-500 { color: #eab308 !important; }
+.text-white { color: #ffffff !important; }
+.text-black { color: #000000 !important; }
+
+/* Better contrast for disabled elements */
+.disabled,
+[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Improved accessibility for form elements */
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+  outline: 2px solid var(--ring) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring) !important;
+}
+
+/* Glassmorphism effects for dashboard components */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+}
+
+.glass-panel {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: calc(var(--radius) + 4px);
+}
+
+/* Enhanced animations for micro-interactions */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(249, 115, 22, 0);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Animation for AI-suggested elements */
+.ai-suggestion {
+  position: relative;
+}
+
+.ai-suggestion::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #f97316, #eab308, #3b82f6);
+  border-radius: calc(var(--radius) + 2px);
+  z-index: -1;
+  animation: ai-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes ai-glow {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* Better focus management for modals and dropdowns */
+.within-modal :focus,
+.within-dropdown :focus {
+  z-index: 1000;
+  position: relative;
+}
