@@ -30,7 +30,7 @@ export const TaskForm = ({ task, onSubmit, onCancel }: TaskFormProps) => {
   useEffect(() => {
     if (task) {
       setTitle(task.title);
-      setDescription(task.description);
+      setDescription(task.description || '');
       setCompleted(task.completed);
       setPriority(task.priority || 'medium');
       setDueDate(task.dueDate || '');

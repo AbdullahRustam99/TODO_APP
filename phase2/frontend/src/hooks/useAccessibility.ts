@@ -42,10 +42,11 @@ export const useAccessibility = () => {
   // Track focus changes
   useEffect(() => {
     const handleFocus = (e: FocusEvent) => {
-      if (e.target instanceof HTMLElement) {
+      if (e.target && e.target instanceof HTMLElement) {
+        const targetElement = e.target;
         setState(prev => ({
           ...prev,
-          currentFocus: e.target.tagName.toLowerCase() || e.target.className || 'unknown',
+          currentFocus: targetElement.tagName.toLowerCase() || targetElement.className || 'unknown',
         }));
       }
     };

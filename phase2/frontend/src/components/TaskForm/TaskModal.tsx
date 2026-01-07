@@ -27,7 +27,7 @@ export const TaskModal = ({ isOpen, onClose, onSubmit, editingTask }: TaskModalP
   useEffect(() => {
     if (editingTask) {
       setTitle(editingTask.title);
-      setDescription(editingTask.description);
+      setDescription(editingTask.description || '');
       setDueDate(editingTask.dueDate || '');
       setPriority(editingTask.priority || 'medium');
     } else {
