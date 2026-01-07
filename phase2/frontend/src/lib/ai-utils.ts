@@ -201,9 +201,17 @@ class MockAIService {
     // Sort tasks by priority and deadline
     return [...tasks].sort((a, b) => {
       // First, sort by priority (high to low)
-      const priorityOrder = { high: 3, medium: 2, low: 1 };
-      if (priorityOrder[b.priority] !== priorityOrder[a.priority]) {
-        return priorityOrder[b.priority] - priorityOrder[a.priority];
+      const getPriorityValue = (priority: any) => {
+        if (priority === 'high') return 3;
+        if (priority === 'medium') return 2;
+        return 1; // default to low
+      };
+
+      const aPriorityValue = getPriorityValue(a.priority);
+      const bPriorityValue = getPriorityValue(b.priority);
+
+      if (aPriorityValue !== bPriorityValue) {
+        return bPriorityValue - aPriorityValue; // Higher priority first
       }
 
       // Then by deadline (earlier first)

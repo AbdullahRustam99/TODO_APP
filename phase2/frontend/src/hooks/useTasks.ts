@@ -20,7 +20,7 @@ export const useTasks = () => {
         throw new Error('User not authenticated');
       }
 
-      const response = await apiClient.get<Task[]>(`/api/${user.id}/tasks`, token);
+      const response = await apiClient.get<Task[]>(`/api/${user.id}/tasks`, token || undefined);
 
       // The response should be an array of tasks
       setTasks(response);
@@ -49,7 +49,7 @@ export const useTasks = () => {
       };
 
       // Call the backend API to create the task
-      const response = await apiClient.post<Task>(`/api/${user.id}/tasks`, taskDataWithDefaults, token);
+      const response = await apiClient.post<Task>(`/api/${user.id}/tasks`, taskDataWithDefaults, token || undefined);
       const newTask = response;
 
       // Update the local state with the new task
@@ -92,7 +92,7 @@ export const useTasks = () => {
       };
 
       // Call the backend API to update the task
-      const response = await apiClient.put<Task>(`/api/${user.id}/tasks/${id}`, taskDataWithDefaults, token);
+      const response = await apiClient.put<Task>(`/api/${user.id}/tasks/${id}`, taskDataWithDefaults, token || undefined);
       const updatedTask = response;
 
       // Update the local state with the updated task
@@ -131,7 +131,7 @@ export const useTasks = () => {
       }
 
       // Call the backend API to delete the task
-      await apiClient.delete(`/api/${user.id}/tasks/${id}`, token);
+      await apiClient.delete(`/api/${user.id}/tasks/${id}`, token || undefined);
 
       // Update the local state by filtering out the deleted task
       setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
@@ -182,7 +182,7 @@ export const useTasks = () => {
       // Call the backend API to update the task completion status
       const response = await apiClient.patch<Task>(`/api/${user.id}/tasks/${id}/complete`, {
         completed: !currentCompletedStatus
-      }, token);
+      }, token || undefined);
       const updatedTask = response;
 
       // If the task wasn't in the local state, add it; otherwise update it
@@ -267,7 +267,7 @@ export const useTasks = () => {
 
     const filteredTasks = tasks.filter(task =>
       task.title.toLowerCase().includes(query.toLowerCase()) ||
-      task.description.toLowerCase().includes(query.toLowerCase())
+      (task.description && task.description.toLowerCase().includes(query.toLowerCase()))
     );
 
     return sortTasksByPriority(filteredTasks);

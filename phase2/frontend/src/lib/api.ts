@@ -18,7 +18,10 @@ export function getAuthHeaders(token?: string): HeadersInit {
   const headers = { ...defaultHeaders };
 
   if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
+    return {
+      ...headers,
+      'Authorization': `Bearer ${token}`,
+    };
   }
 
   return headers;

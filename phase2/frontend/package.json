@@ -31,8 +31,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "@types/react-aria": "^3.0.0",
-    "@types/react-stately": "^3.0.0"
+    "typescript": "^5"
   }
 }
