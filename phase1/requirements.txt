@@ -1,3 +1,0 @@
-# Python 3.13 requirements for TODO Console Application
-# No external dependencies required as we'll use built-in libraries (curses for menu navigation)
-# Only Python standard library needed
