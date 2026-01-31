@@ -46,3 +46,30 @@ This is a Next.js application.
 ### 3. Access the Application
 
 Open your browser to: **[http://localhost:3000/dashboard](http://localhost:3000/dashboard)**
+This is the AI TODO APP project with five phases:
+1. Console App
+2. Web App (COMPLETED)
+3. AI Chatbot
+4. Bonus Features
+5. Deployment
+
+
+
+
+## Features
+
+- User authentication (register, login, logout)
+- Create, read, update, and delete tasks
+- Set task priorities (High, Medium, Low)
+- Set due dates and categories for tasks
+- Filter and sort tasks
+- Dashboard with analytics
+- Responsive design for mobile and desktop
+- Accessibility features
+
+## Tech Stack
+
+- Backend: Python, FastAPI, SQLAlchemy, JWT
+- Frontend: Next.js, TypeScript, Tailwind CSS
+- Database: SQLite (with option to switch to PostgreSQL/MySQL)
+- Ai Agent: Chatkit, OpenAI Agent SDK
