@@ -20,7 +20,11 @@ export const useTasks = () => {
         throw new Error('User not authenticated');
       }
 
+<<<<<<< HEAD
       const response = await apiClient.get<Task[]>(`/api/${user.id}/tasks`, token || undefined);
+=======
+      const response = await apiClient.get<Task[]>(`/api/${user.id}/tasks`, token);
+>>>>>>> main
 
       // The response should be an array of tasks
       setTasks(response);
@@ -49,7 +53,11 @@ export const useTasks = () => {
       };
 
       // Call the backend API to create the task
+<<<<<<< HEAD
       const response = await apiClient.post<Task>(`/api/${user.id}/tasks`, taskDataWithDefaults, token || undefined);
+=======
+      const response = await apiClient.post<Task>(`/api/${user.id}/tasks`, taskDataWithDefaults, token);
+>>>>>>> main
       const newTask = response;
 
       // Update the local state with the new task
@@ -92,7 +100,11 @@ export const useTasks = () => {
       };
 
       // Call the backend API to update the task
+<<<<<<< HEAD
       const response = await apiClient.put<Task>(`/api/${user.id}/tasks/${id}`, taskDataWithDefaults, token || undefined);
+=======
+      const response = await apiClient.put<Task>(`/api/${user.id}/tasks/${id}`, taskDataWithDefaults, token);
+>>>>>>> main
       const updatedTask = response;
 
       // Update the local state with the updated task
@@ -131,7 +143,11 @@ export const useTasks = () => {
       }
 
       // Call the backend API to delete the task
+<<<<<<< HEAD
       await apiClient.delete(`/api/${user.id}/tasks/${id}`, token || undefined);
+=======
+      await apiClient.delete(`/api/${user.id}/tasks/${id}`, token);
+>>>>>>> main
 
       // Update the local state by filtering out the deleted task
       setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
@@ -182,7 +198,11 @@ export const useTasks = () => {
       // Call the backend API to update the task completion status
       const response = await apiClient.patch<Task>(`/api/${user.id}/tasks/${id}/complete`, {
         completed: !currentCompletedStatus
+<<<<<<< HEAD
       }, token || undefined);
+=======
+      }, token);
+>>>>>>> main
       const updatedTask = response;
 
       // If the task wasn't in the local state, add it; otherwise update it
@@ -267,7 +287,11 @@ export const useTasks = () => {
 
     const filteredTasks = tasks.filter(task =>
       task.title.toLowerCase().includes(query.toLowerCase()) ||
+<<<<<<< HEAD
       (task.description && task.description.toLowerCase().includes(query.toLowerCase()))
+=======
+      task.description.toLowerCase().includes(query.toLowerCase())
+>>>>>>> main
     );
 
     return sortTasksByPriority(filteredTasks);

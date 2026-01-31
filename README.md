@@ -73,3 +73,4 @@ This is the AI TODO APP project with five phases:
 - Frontend: Next.js, TypeScript, Tailwind CSS
 - Database: SQLite (with option to switch to PostgreSQL/MySQL)
 - Ai Agent: Chatkit, OpenAI Agent SDK
+- Database: SQLite (with option to switch to PostgreSQL/MySQL)

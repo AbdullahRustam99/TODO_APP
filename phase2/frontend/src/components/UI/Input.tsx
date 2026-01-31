@@ -1,6 +1,10 @@
 'use client';
 
+<<<<<<< HEAD
 import { InputHTMLAttributes, TextareaHTMLAttributes, forwardRef } from 'react';
+=======
+import { InputHTMLAttributes, forwardRef } from 'react';
+>>>>>>> main
 import { cn } from '@/lib/utils';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -8,6 +12,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   fullWidth?: boolean;
   animateOnChange?: boolean;
+<<<<<<< HEAD
   as?: 'input' | 'textarea';
   rows?: number;
 }
@@ -15,6 +20,13 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
   ({ label, error, fullWidth = false, animateOnChange = true, className, as = 'input', rows, id, ...props }, ref) => {
     const baseClasses = 'flex w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-black file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200';
+=======
+}
+
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ label, error, fullWidth = false, animateOnChange = true, className, ...props }, ref) => {
+    const baseClasses = 'flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-black file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200';
+>>>>>>> main
 
     const errorClasses = error ? 'border-red-500 focus-visible:ring-red-500' : '';
     const widthClass = fullWidth ? 'w-full' : '';
@@ -30,6 +42,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
       className
     );
 
+<<<<<<< HEAD
     const inputElement = as === 'textarea' ? (
       <textarea
         ref={ref as React.Ref<HTMLTextAreaElement>}
@@ -49,6 +62,8 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
       />
     );
 
+=======
+>>>>>>> main
     return (
       <div className="w-full space-y-2">
         {label && (
@@ -56,10 +71,23 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
             {label}
           </label>
         )}
+<<<<<<< HEAD
         {inputElement}
         {error && (
           <p
             id={id ? `${id}-error` : undefined}
+=======
+        <input
+          ref={ref}
+          className={classes}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${props.id}-error` : undefined}
+          {...props}
+        />
+        {error && (
+          <p
+            id={props.id ? `${props.id}-error` : undefined}
+>>>>>>> main
             className="text-sm text-red-500"
           >
             {error}
@@ -70,6 +98,10 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
   }
 );
 
+<<<<<<< HEAD
 Input.displayName = 'Input';
 
 export { Input };
+=======
+Input.displayName = 'Input';
+>>>>>>> main

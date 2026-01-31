@@ -11,7 +11,11 @@ interface TooltipProps {
 export const Tooltip = ({ children, content, position = 'top' }: TooltipProps) => {
   const [visible, setVisible] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
+<<<<<<< HEAD
   const triggerRef = useRef<HTMLDivElement>(null);
+=======
+  const triggerRef = useRef<HTMLElement>(null);
+>>>>>>> main
 
   // Handle visibility based on hover/focus
   useEffect(() => {

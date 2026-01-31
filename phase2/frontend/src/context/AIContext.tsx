@@ -70,7 +70,11 @@ export const AIProvider = ({ children }: AIProviderProps) => {
       if (!userId) {
         throw new Error('User ID is required to generate task suggestions');
       }
+<<<<<<< HEAD
       const response = await apiClient.get<AITaskSuggestionResponse>(`/api/${userId}/ai/suggestions`, token || undefined);
+=======
+      const response = await apiClient.get<AITaskSuggestionResponse>(`/api/${userId}/ai/suggestions`, token);
+>>>>>>> main
       setSuggestions(response.suggestions);
       return response.suggestions;
     } catch (err) {
@@ -101,7 +105,11 @@ export const AIProvider = ({ children }: AIProviderProps) => {
       if (!userId) {
         throw new Error('User ID is required to ask AI');
       }
+<<<<<<< HEAD
       const response = await apiClient.post<AIQueryResponse>(`/api/${userId}/ai/query`, { query }, token || undefined);
+=======
+      const response = await apiClient.post<AIQueryResponse>(`/api/${userId}/ai/query`, { query }, token);
+>>>>>>> main
       setLastResponse(response.response);
 
       // Update suggestions if provided in response

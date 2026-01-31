@@ -14,7 +14,11 @@ export const FocusManager = ({
   restoreFocus = true,
   containerRef: externalContainerRef
 }: FocusManagerProps) => {
+<<<<<<< HEAD
   const internalContainerRef = useRef<HTMLDivElement>(null);
+=======
+  const internalContainerRef = useRef<HTMLElement>(null);
+>>>>>>> main
   const containerRef = externalContainerRef || internalContainerRef;
   const previousActiveElement = useRef<HTMLElement | null>(null);
 

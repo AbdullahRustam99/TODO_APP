@@ -56,7 +56,11 @@ export const APIHealthCheck = () => {
 
   const testTasksAPI = async (): Promise<boolean> => {
     try {
+<<<<<<< HEAD
       await apiClient.get('/api/tasks', token || undefined);
+=======
+      await apiClient.get('/api/tasks', token);
+>>>>>>> main
       return true;
     } catch (error) {
       console.error('Tasks API check failed:', error);
@@ -66,7 +70,11 @@ export const APIHealthCheck = () => {
 
   const testAIAPI = async (): Promise<boolean> => {
     try {
+<<<<<<< HEAD
       await apiClient.get('/api/ai/suggestions', token || undefined);
+=======
+      await apiClient.get('/api/ai/suggestions', token);
+>>>>>>> main
       return true;
     } catch (error) {
       console.error('AI API check failed:', error);

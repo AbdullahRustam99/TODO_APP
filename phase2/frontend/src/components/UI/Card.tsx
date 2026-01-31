@@ -3,7 +3,11 @@
 import { HTMLAttributes, forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
+<<<<<<< HEAD
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+=======
+interface CardProps extends HTMLAttributes<HTMLDivElement> {
+>>>>>>> main
   title?: string;
   description?: string;
 }
