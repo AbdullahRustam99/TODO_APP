@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@openai/chatkit": "^1.4.0",
+    "@openai/chatkit-react": "^1.4.2",
     "axios": "^1.13.2"
   }
 }

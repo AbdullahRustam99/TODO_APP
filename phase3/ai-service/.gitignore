@@ -1,0 +1,45 @@
+# Byte-code files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Editors
+.idea/
+.vscode/
+
+# Environments
+.venv/
+env/
+venv/
+*.ini
+.python-version
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# OS
+.DS_Store
+.Trashes
+Thumbs.db
+
+# uv specific
+.uv/
+uv.lock
+
+# dotenv
+.env
+.env.*
+!.env.example # Keep example files

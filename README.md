@@ -1,5 +1,51 @@
-# AI TODO APP
+# Todo App with AI Chatbot
 
+This project is a Todo application integrated with an AI chatbot, designed to be fully responsive and user-friendly.
+
+## Key Features & Improvements
+
+*   **Responsive Frontend UI:** The application now boasts a fully responsive dashboard with a mobile-friendly bottom navigation bar and adaptable filter tabs, ensuring optimal viewing across all devices.
+*   **AI Chatbot Service (Backend):** Integrated an AI assistant, powered by FastAPI, for natural language task management. This service now includes Docker support, verified dependencies, and proper Git ignore configurations.
+*   **Core Backend API (Python/FastAPI):** The project includes a robust core backend API, built with Python and FastAPI, handling primary application logic and data management.
+*   **Robust Frontend Build:** Achieved a clean compilation by resolving numerous TypeScript errors, build issues, and dependency conflicts across frontend utilities and API clients.
+*   **Enhanced Code Quality:** Improved maintainability through addressing various code quality and typing issues throughout the codebase.
+
+## How to Run the Application
+
+To get the application running, follow these steps:
+
+### 1. Core Backend API Setup (`phase3/backend`)
+
+This is the main backend service for the Todo application, built with Python and FastAPI.
+
+1.  **Navigate:** `cd phase3/backend`
+2.  **Environment Variables:** Create a `.env` file for any necessary backend configurations (e.g., database credentials, JWT secrets). Specific variables will depend on the backend's implementation.
+3.  **Install Dependencies:** `uv pip install --system --no-cache-dir -r requirements.txt` (install `uv` first if needed: `pip install uv`)
+4.  **Run Service:** `uvicorn main:app --host 0.0.0.0 --port 8000 --reload` (replace `main:app` with the actual entry point if different, and adjust port if necessary; keep this terminal open)
+
+### 2. AI Service Backend Setup (`phase3/ai-service`)
+
+This service uses Python and FastAPI.
+
+1.  **Navigate:** `cd phase3/ai-service`
+2.  **Environment Variables:** Create `.env` with `GEMINI_API_KEY`, `BETTER_AUTH_SECRET`, and optionally `BUSINESS_SERVICE_URL`, `CONVERSATION_RETENTION_DAYS`.
+    *   `GEMINI_API_KEY`: Your API key for OpenRouter AI (using `z-ai/glm-4.5-air:free`).
+    *   `BETTER_AUTH_SECRET`: A strong secret string.
+3.  **Install Dependencies:** `uv pip install --system --no-cache-dir -r requirements.txt` (install `uv` first if needed: `pip install uv`)
+4.  **Run Service:** `uvicorn main:app --host 0.0.0.0 --port 8000 --reload` (keep this terminal open)
+
+### 3. Frontend Web Application Setup (`phase3/frontend`)
+
+This is a Next.js application.
+
+1.  **Navigate (new terminal):** `cd phase3/frontend`
+2.  **Environment Variables:** Create `.env.local` with `NEXT_PUBLIC_CHATKIT_API_URL=http://localhost:8000`
+3.  **Install Dependencies:** `npm install`
+4.  **Run Application:** `npm run dev`
+
+### 3. Access the Application
+
+Open your browser to: **[http://localhost:3000/dashboard](http://localhost:3000/dashboard)**
 This is the AI TODO APP project with five phases:
 1. Console App
 2. Web App (COMPLETED)
@@ -7,52 +53,6 @@ This is the AI TODO APP project with five phases:
 4. Bonus Features
 5. Deployment
 
-## Current Status
-
-Phase 2: Web App is now complete! The application includes a full-stack web application with:
-- Backend API built with FastAPI
-  - User authentication and authorization (JWT)
-  - Task management with CRUD operations
-  - Priority levels, due dates, and categories
-  - Filtering and sorting capabilities
-  - Database integration with SQLAlchemy
-- Frontend built with Next.js
-  - Dashboard with task management
-  - Authentication pages (login/signup)
-  - Task modal for creating and editing
-  - Analytics and productivity charts
-  - Responsive UI with modern design
-  - Accessibility features
-
-## Setup Instructions
-
-### Backend Setup
-
-1. Navigate to the backend directory: `cd phase2/backend`
-2. Create a virtual environment: `python -m venv .venv`
-3. Activate the virtual environment:
-   - Windows: `.venv\Scripts\activate`
-   - macOS/Linux: `source .venv/bin/activate`
-4. Install dependencies: `pip install -r requirements.txt`
-5. Set up environment variables in a `.env` file:
-   ```
-   DATABASE_URL=sqlite:///./todo_app.db
-   SECRET_KEY=your-secret-key-here
-   ALGORITHM=HS256
-   ACCESS_TOKEN_EXPIRE_MINUTES=30
-   ```
-6. Run the application: `python main.py`
-
-### Frontend Setup
-
-1. Navigate to the frontend directory: `cd phase2/frontend`
-2. Install dependencies: `npm install` or `yarn install`
-3. Set up environment variables in a `.env` file:
-   ```
-   NEXT_PUBLIC_API_URL=http://localhost:8000
-   ```
-4. Run the development server: `npm run dev` or `yarn dev`
-5. Open http://localhost:3000 in your browser
 
 ## Features
 
@@ -69,4 +69,6 @@ Phase 2: Web App is now complete! The application includes a full-stack web appl
 
 - Backend: Python, FastAPI, SQLAlchemy, JWT
 - Frontend: Next.js, TypeScript, Tailwind CSS
+- Database: SQLite (with option to switch to PostgreSQL/MySQL)
+- Ai Agent: Chatkit, OpenAI Agent SDK
 - Database: SQLite (with option to switch to PostgreSQL/MySQL)
