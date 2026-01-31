@@ -12,6 +12,7 @@
     "@better-fetch/fetch": "^1.1.21",
     "@hookform/resolvers": "^3.9.1",
     "@openai/chatkit-react": "^1.4.3",
+    "axios": "^1.13.4",
     "better-auth": "^1.4.9",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
