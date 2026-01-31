@@ -1,0 +1,427 @@
+openapi: 3.0.0
+info:
+  title: Task Management API
+  description: API for managing user tasks in the Todo App
+  version: 1.0.0
+
+paths:
+  /api/{user_id}/tasks:
+    get:
+      summary: Get all tasks for a user
+      description: Retrieve all tasks associated with the specified user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: The ID of the user whose tasks to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of tasks for the user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        '401':
+          description: Unauthorized - Invalid or missing JWT token
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+      security:
+        - bearerAuth: []
+
+    post:
+      summary: Create a new task
+      description: Create a new task for the specified user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: The ID of the user creating the task
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      responses:
+        '201':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Invalid request data
+        '401':
+          description: Unauthorized - Invalid or missing JWT token
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+      security:
+        - bearerAuth: []
+
+  /api/{user_id}/tasks/{task_id}:
+    get:
+      summary: Get a specific task
+      description: Retrieve a specific task by ID for the specified user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: The ID of the user
+          schema:
+            type: integer
+        - name: task_id
+          in: path
+          required: true
+          description: The ID of the task to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Task details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          description: Unauthorized - Invalid or missing JWT token
+        '404':
+          description: Task not found
+        '500':
+          description: Internal server error
+      security:
+        - bearerAuth: []
+
+    put:
+      summary: Update a task
+      description: Update the details of an existing task
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: The ID of the user
+          schema:
+            type: integer
+        - name: task_id
+          in: path
+          required: true
+          description: The ID of the task to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+      responses:
+        '200':
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Invalid request data
+        '401':
+          description: Unauthorized - Invalid or missing JWT token
+        '404':
+          description: Task not found
+        '500':
+          description: Internal server error
+      security:
+        - bearerAuth: []
+
+    delete:
+      summary: Delete a task
+      description: Delete a specific task by ID
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: The ID of the user
+          schema:
+            type: integer
+        - name: task_id
+          in: path
+          required: true
+          description: The ID of the task to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Task deleted successfully
+        '401':
+          description: Unauthorized - Invalid or missing JWT token
+        '404':
+          description: Task not found
+        '500':
+          description: Internal server error
+      security:
+        - bearerAuth: []
+
+  /api/{user_id}/tasks/{task_id}/complete:
+    patch:
+      summary: Update task completion status
+      description: Update the completion status of a specific task
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: The ID of the user
+          schema:
+            type: integer
+        - name: task_id
+          in: path
+          required: true
+          description: The ID of the task to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                completed:
+                  type: boolean
+                  description: The new completion status
+              required:
+                - completed
+      responses:
+        '200':
+          description: Task completion status updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Invalid request data
+        '401':
+          description: Unauthorized - Invalid or missing JWT token
+        '404':
+          description: Task not found
+        '500':
+          description: Internal server error
+      security:
+        - bearerAuth: []
+
+  /api/auth/login:
+    post:
+      summary: User login
+      description: Authenticate user and return JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                password:
+                  type: string
+                  description: User's password
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  token:
+                    type: string
+                    description: JWT token for API authentication
+        '400':
+          description: Invalid request data
+        '401':
+          description: Invalid email or password
+        '500':
+          description: Internal server error
+
+  /api/auth/register:
+    post:
+      summary: User registration
+      description: Register a new user and return JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: User's email address
+                password:
+                  type: string
+                  description: User's password
+                name:
+                  type: string
+                  description: User's display name
+              required:
+                - email
+                - password
+                - name
+      responses:
+        '201':
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  token:
+                    type: string
+                    description: JWT token for API authentication
+        '400':
+          description: Invalid request data or email already exists
+        '500':
+          description: Internal server error
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the user
+        email:
+          type: string
+          format: email
+          description: User's email address
+        name:
+          type: string
+          description: User's display name
+        createdAt:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+      required:
+        - id
+        - email
+        - name
+        - createdAt
+        - updatedAt
+
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the task
+        title:
+          type: string
+          description: Task title
+        description:
+          type: string
+          description: Detailed task description
+        completed:
+          type: boolean
+          description: Completion status (true/false)
+        userId:
+          type: integer
+          description: Foreign key linking to the user who owns this task
+        createdAt:
+          type: string
+          format: date-time
+          description: Task creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        dueDate:
+          type: string
+          format: date-time
+          description: Task due date if applicable
+        priority:
+          type: string
+          enum: [high, medium, low]
+          description: Task priority level
+      required:
+        - id
+        - title
+        - completed
+        - userId
+        - createdAt
+        - updatedAt
+
+    CreateTaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Task title
+          maxLength: 200
+        description:
+          type: string
+          description: Detailed task description
+          maxLength: 1000
+        completed:
+          type: boolean
+          description: Initial completion status (default: false)
+        dueDate:
+          type: string
+          format: date-time
+          description: Task due date if applicable
+        priority:
+          type: string
+          enum: [high, medium, low]
+          description: Task priority level
+      required:
+        - title
+
+    UpdateTaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Task title
+          maxLength: 200
+        description:
+          type: string
+          description: Detailed task description
+          maxLength: 1000
+        completed:
+          type: boolean
+          description: Completion status
+        dueDate:
+          type: string
+          format: date-time
+          description: Task due date if applicable
+        priority:
+          type: string
+          enum: [high, medium, low]
+          description: Task priority level

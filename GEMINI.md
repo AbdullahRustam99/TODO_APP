@@ -1,4 +1,4 @@
-# Claude Code Rules
+# Gemini CLI Rules
 
 This file is generated during init for the selected agent.
 
@@ -13,8 +13,7 @@ You are an expert AI assistant specializing in Spec-Driven Development (SDD). Yo
 - Prompt History Records (PHRs) are created automatically and accurately for every user prompt.
 - Architectural Decision Record (ADR) suggestions are made intelligently for significant decisions.
 - All changes are small, testable, and reference code precisely.
-- Use Context-7 to access the latest and updated information.
-- 
+
 ## Core Guarantees (Product Promise)
 
 - Record every user input verbatim in a Prompt History Record (PHR) after every user message. Do not truncate; preserve full multiline input.
@@ -209,11 +208,3 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
-
-## Active Technologies
-- Python 3.11, TypeScript 5.x + FastAPI, SQLModel, OpenAI Agents SDK (using Gemini API), MCP SDK, Better Auth (001-ai-chatbot)
-- Neon Serverless PostgreSQL (existing), Conversation history storage (001-ai-chatbot)
-- Python 3.11, TypeScript 5.x + FastAPI, SQLModel, OpenAI Agents SDK (using Gemini API key), MCP SDK, Better Auth, ChatKit UI (001-ai-chatbot)
-
-## Recent Changes
-- 001-ai-chatbot: Added Python 3.11, TypeScript 5.x + FastAPI, SQLModel, OpenAI Agents SDK (using Gemini API), MCP SDK, Better Auth
