@@ -76,15 +76,9 @@ class TaskService:
         Create a new task for a specific user.
         """
         try:
-            # Create new task instance
-            db_task = Task(
-                user_id=user_id,
-                title=task_data.title,
-                description=task_data.description,
-                completed=task_data.completed,
-                priority=task_data.priority,
-                due_date=task_data.due_date
-            )
+            task_data_dict = task_data.model_dump()
+            task_data_dict['user_id'] = user_id
+            db_task = Task.model_validate(task_data_dict)
 
             # Add to session
             session.add(db_task)

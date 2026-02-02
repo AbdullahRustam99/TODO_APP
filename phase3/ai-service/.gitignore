@@ -37,7 +37,6 @@ Thumbs.db
 
 # uv specific
 .uv/
-uv.lock
 
 # dotenv
 .env

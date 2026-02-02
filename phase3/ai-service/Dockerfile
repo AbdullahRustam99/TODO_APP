@@ -1,22 +1,18 @@
-# Use an official Python runtime as a parent image
 FROM python:3.10
+# Pehle root user hai by default, to yahan packages install karo
+RUN apt-get update && apt-get install -y libgl1 libglib2.0-0
 
-# Set the working directory in the container
+# Ab user add karo aur switch karo
+RUN useradd -m -u 1000 user
+USER user
+ENV PATH="/home/user/.local/bin:$PATH"
+
 WORKDIR /app
 
-# Install uv for faster dependency management
-RUN pip install uv
+COPY --chown=user ./requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+RUN pip install --no-cache-dir openai-chatkit==1.4.0
 
-# Copy uv.lock and requirements.txt and install dependencies
-COPY uv.lock .
-COPY requirements.txt .
-RUN uv pip install --system --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
-COPY . .
-
-# Expose the port the app runs on
-EXPOSE 8001
-
-# Run the FastAPI application with Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]
+COPY --chown=user . /app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]

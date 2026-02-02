@@ -19,7 +19,6 @@ from todo_agent import TodoAgent
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-
 class MemoryStore(Store):
     """In-memory implementation of ChatKit Store for development."""
 
@@ -243,15 +242,17 @@ async def chatkit_endpoint(request: Request) -> Response:
         return JSONResponse({"error": str(e)}, status_code=500)
 
 
-@app.get("/health")
+@app.get("/")
 async def health_check():
     """Health check endpoint."""
     return {
-        "status": "ok",
         "service": "chatkit-todo-assistant",
         "initialized": chatkit_server is not None
     }
 
+@app.get("/health")
+async def health():
+        return{"status": "ok"}
 
 @app.post("/chatkit/api")
 async def chatkit_api_endpoint(request: Request) -> Response:

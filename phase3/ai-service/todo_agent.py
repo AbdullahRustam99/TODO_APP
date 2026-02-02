@@ -35,8 +35,7 @@ class TodoAgent:
         self.config = RunConfig(model=model, model_provider=self.client)
         self.mcp_server = MCPServerStdio(
             name="Todo Management MCP Server",
-            params={"command": sys.executable, "args": ["-m", "ai_mcp_server"]},
-            client_session_timeout_seconds=30.0
+            params={"command": sys.executable, "args": ["-m", "ai_mcp_server"]},            
         )
         self.agent = Agent(
             name="TodoAssistant",

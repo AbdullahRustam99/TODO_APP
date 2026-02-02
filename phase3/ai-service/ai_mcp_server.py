@@ -11,13 +11,15 @@ from config.config import settings
 import logging
 import os
 import sys
-
+from dotenv import load_dotenv
 # Set up logging
 logger = logging.getLogger(__name__)
 
+load_dotenv()
+
 logger.info("--- MCP SERVER SCRIPT STARTING ---")
 # Load secure service secret from environment variable
-SERVICE_SECRET = settings.BETTER_AUTH_SECRET
+SERVICE_SECRET = "abfe95adc6a3d85f1d8533a0fbf151b18240d817b471dda39a925555d886549c32c667dbeb184b9e9c73da3227c0dae5f83a"
 logger.info(f"SERVICE_SECRET loaded: '{bool(SERVICE_SECRET)}'") # Log boolean status, not the secret itself.
 
 if not SERVICE_SECRET:
