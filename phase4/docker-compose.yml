@@ -1,0 +1,118 @@
+version: '3.8'
+
+services:
+  # Backend API Service (Using Neon Database)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: todo-backend
+    env_file: .env
+    environment:
+      # Database Configuration
+      DATABASE_URL: ${DATABASE_URL}
+      DB_ECHO: ${DB_ECHO}
+      
+      # JWT/Auth Configuration
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES}
+      REFRESH_TOKEN_EXPIRE_DAYS: ${REFRESH_TOKEN_EXPIRE_DAYS}
+      
+      # Application Settings
+      DEBUG: ${DEBUG}
+      
+      # AI Service Configuration
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    ports:
+      - "${BACKEND_PORT}:8000"
+    networks:
+      - todo-network
+    # No local postgres dependency - using Neon
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+      start_period: 40s
+
+  # AI Service (ChatKit + MCP)
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: todo-ai-service
+    env_file: .env
+    environment:
+      # AI Configuration
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+
+      # Service Configuration
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+      BUSINESS_SERVICE_URL: ${BUSINESS_SERVICE_URL}
+      CONVERSATION_RETENTION_DAYS: ${CONVERSATION_RETENTION_DAYS}
+
+      # Database access for conversation storage
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      - "${AI_SERVICE_PORT}:8001"
+    networks:
+      - todo-network
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+      start_period: 40s
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: todo-frontend
+    env_file: .env
+    environment:
+      # API Configuration
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+      NEXT_PUBLIC_CHATKIT_DOMAIN_KEY: ${NEXT_PUBLIC_CHATKIT_DOMAIN_KEY}
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL}
+      NEXT_PUBLIC_BETTER_AUTH_URL: ${NEXT_PUBLIC_BETTER_AUTH_URL}
+      NEXT_PUBLIC_CHATKIT_API_URL: ${NEXT_PUBLIC_CHATKIT_API_URL}
+      NEXT_PUBLIC_CHATKIT_UPLOAD_URL: ${NEXT_PUBLIC_CHATKIT_UPLOAD_URL}
+      
+      # Development settings
+      NODE_ENV: ${NODE_ENV}
+      NEXT_TELEMETRY_DISABLED: ${NEXT_TELEMETRY_DISABLED}
+      WATCHPACK_POLLING: ${WATCHPACK_POLLING}
+    ports:
+      - "${FRONTEND_PORT}:3000"
+    volumes:
+      # Mount source code for hot reload
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - todo-network
+    depends_on:
+      - backend
+      - ai-service
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 40s
+
+networks:
+  todo-network:
+    driver: bridge
+    name: todo-network
+
+# No volumes needed - using Neon serverless database

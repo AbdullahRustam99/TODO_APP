@@ -1,0 +1,15 @@
+# Helm
+.helm/
+*.tgz
+
+# Chart sources
+charts/
+chart/
+
+# Dependencies
+vendor/
+charts/
+tmp/
+*.swp
+*.swo
+*~

@@ -1,0 +1,9 @@
+This chart is for the frontend service.
+
+To install the chart with the release name "my-release":
+
+  helm install my-release .
+
+To upgrade the chart:
+
+  helm upgrade my-release .

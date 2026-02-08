@@ -1,0 +1,21 @@
+replicaCount: 1
+
+name: backend
+port: 8000
+
+image:
+  repository: todo-backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
